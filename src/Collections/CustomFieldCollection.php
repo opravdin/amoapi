@@ -3,6 +3,8 @@
  * amoCRM Model Custom field Collection class
  */
 namespace Ufee\Amo\Collections;
+
+use Ufee\Amo\Base\Models\CustomField\NotImplementedField;
 use Ufee\Amo\Models\CustomField;
 
 class CustomFieldCollection extends CollectionWrapper
@@ -54,7 +56,7 @@ class CustomFieldCollection extends CollectionWrapper
     public function getClassFrom(CustomField $cfield)
     {
         if (!array_key_exists($cfield->field_type, self::FIELD_CLASSES)) {
-            throw new \Exception('Unregistered custom field class for type: '.$cfield->field_type);
+            return NotImplementedField::class;
         }
         return self::FIELD_CLASSES[$cfield->field_type];
     }
